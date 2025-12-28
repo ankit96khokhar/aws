@@ -1,29 +1,48 @@
-variable "cluster_name" {
-  description = "EKS cluster name"
-  type        = string
-  default     = "demo-eks-cluster"
-}
-
-variable "kubernetes_version" {
-  description = "Kubernetes version for the EKS control plane"
-  type        = string
-  default     = "1.28"
-}
-
-variable "region" {
+variable "aws_region" {
   description = "AWS region"
   type        = string
-  default     = "us-east-1"
 }
 
-variable "ssh_key_name" {
-  description = "Optional SSH key name for worker nodes (leave empty to skip)"
+variable "project" {
+  description = "Project name"
   type        = string
-  default     = ""
 }
 
-variable "node_instance_type" {
-  description = "EC2 instance type for worker nodes"
+variable "vpc_cidr" {
+  description = "VPC CIDR"
   type        = string
-  default     = "t3.medium"
+}
+
+variable "az_count" {
+  description = "Number of AZs"
+  type        = number
+  default     = 2
+}
+
+variable "public_subnets" {
+  description = "Public subnet CIDRs"
+  type        = list(string)
+}
+
+variable "private_subnets" {
+  description = "Private subnet CIDRs"
+  type        = list(string)
+}
+
+variable "enable_nat_gateway" {
+  description = "Enable NAT Gateway"
+  type        = bool
+  default     = false
+}
+
+variable "single_nat_gateway" {
+  description = "Use single NAT Gateway"
+  type        = bool
+  default     = false
+}
+
+variable "tags" {
+  description = "Common tags"
+  type        = map(string)
+  default     = {}
 }
