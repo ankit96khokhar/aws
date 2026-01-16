@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: datascience-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: datascience
+  template:
+    metadata:
+      labels:
+        app: datascience
+    spec:
+      nodeSelector:
+        workload: datascience     # STRICT placement
+      tolerations:
+      - key: "workload"
+        operator: "Equal"
+        value: "datascience"
+        effect: "NoSchedule"
+      containers:
+      - name: app
+        image: nginx
+

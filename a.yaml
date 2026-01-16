@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-basic
+spec:
+  replicas: 12
+  selector:
+    matchLabels:
+      app: nginx-basic
+  template:
+    metadata:
+      labels:
+        app: nginx-basic
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app: nginx-basic
+      - maxSkew: 1
+        topologyKey: topology.kubernetes.io/zone
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app: nginx-basic            
